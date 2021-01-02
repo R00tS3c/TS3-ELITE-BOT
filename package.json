@@ -13,5 +13,8 @@
   },
   "engines": {
     "node": "12.x"
+  },
+  "scripts": {
+    "start": "node bot.js"
   }
 }
