@@ -106,26 +106,26 @@ async function sendWelcome(client) {
 };
 
 async function updateOnline(channelid) {
-  const clients = await teamspeak.clientList({})
+  const clients = await teamspeak.clientList();
   var TotalClients = clients.length;
   var replace = "[cspacer]ONLINE: "+TotalClients;
   await teamspeak.channelInfo(channelid).then(currentname => {
   if(currentname.channelName!=replace) {
   teamspeak.channelEdit(channelid, {channelName: replace});
   }
-  })
+  });
 };
 
 async function updateStaff(channelid) {
-  const clients = await teamspeak.clientList()
-  const count = clients.filter(client => StaffGroups.some(g => client.servergroups.includes(g)))
+  const clients = await teamspeak.clientList();
+  const count = await clients.filter(client => StaffGroups.some(g => client.servergroups.includes(g)));
   var TotalStaff = count.length;
   var replace = "[cspacer]STAFF ONLINE: "+TotalStaff;
   await teamspeak.channelInfo(channelid).then(currentname => {
   if(currentname.channelName!=replace) {
   teamspeak.channelEdit(channelid, {channelName: replace});
   }
-  })
+  });
 };
 
 teamspeak.on("textmessage", message => {
