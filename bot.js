@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const { TeamSpeak, QueryProtocol } = require("ts3-nodejs-library");
-const { Commander } = require("teamspeak-commander");
 const { get } = require("snekfetch");
 
 //Podesavanja
