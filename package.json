@@ -9,7 +9,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "ts3-nodejs-library": "3.2.0",
-    "teamspeak-commander": "0.1.2"
+    "snekfetch": "4.0.4"
   },
   "engines": {
     "node": "12.x"
