@@ -1,0 +1,17 @@
+{
+  "name": "ELITETSBOT",
+  "version": "0.0.1",
+  "description": "ELITE TS BOT",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "ts3-nodejs-library": "3.2.0",
+    "teamspeak-commander": "0.1.2"
+  },
+  "engines": {
+    "node": "12.x"
+  }
+}
