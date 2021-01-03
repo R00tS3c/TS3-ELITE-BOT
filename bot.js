@@ -117,7 +117,7 @@ async function sendWelcome(client) {
 
 async function SendStaffMSG(username) {
   const clients = await teamspeak.clientList();
-  const clientsfilter = await clients.filter(client => NotfyHelp.some(g => client.servergroups.includes(g)));
+  const clientsfilter = await clients.filter(client => NotifyHelp.some(g => client.servergroups.includes(g)));
   clientsfilter.forEach(client => {
     client.message("Potrebna je pomoć korisniku [b]"+username+"[/b] !")
   });
