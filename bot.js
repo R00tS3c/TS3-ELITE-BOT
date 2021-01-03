@@ -129,7 +129,7 @@ async function updateOnline(channelid) {
   var replace = "[cspacer]ONLINE: "+TotalClients;
   await teamspeak.channelInfo(channelid).then(currentname => {
   if(currentname.channelName!=replace) {
-    await teamspeak.channelEdit(channelid, {channelName: replace});
+    teamspeak.channelEdit(channelid, {channelName: replace});
   }
   });
 };
@@ -141,7 +141,7 @@ async function updateStaff(channelid) {
   var replace = "[cspacer]STAFF ONLINE: "+TotalStaff;
   await teamspeak.channelInfo(channelid).then(currentname => {
   if(currentname.channelName!=replace) {
-    await teamspeak.channelEdit(channelid, {channelName: replace});
+    teamspeak.channelEdit(channelid, {channelName: replace});
   }
   });
 };
