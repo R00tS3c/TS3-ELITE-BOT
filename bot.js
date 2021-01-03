@@ -45,7 +45,7 @@ const teamspeak = new TeamSpeak({
 })
 
 teamspeak.on("ready", async function() {
-   log("BOT USPESNO POVEZAN NA TS3!", 2);
+   await log("BOT USPESNO POVEZAN NA TS3!", 2);
    if(UsersOnline==true) {
    await updateOnline(OnlineChannelID);
    }
@@ -81,23 +81,23 @@ teamspeak.on("clientdisconnect", async () => {
 
 teamspeak.on("close", async () => {
     if(TryReconnect==true)
-    log("RECONNECT: Pokusavam da se povezem na TS3...", 2)
+    await log("RECONNECT: Pokusavam da se povezem na TS3...", 2)
     await teamspeak.reconnect(-1, 1000)
-    log("RECONNECT: Uspešno!", 2)
+    await log("RECONNECT: Uspešno!", 2)
 });
 
 
 teamspeak.on("error", (error) => {
-  log(error, 1);
+  await log(error, 1);
 });
 
-function log(msg, type) {
+async function log(msg, type) {
   if(debug==true && type==0) {
-  console.log("DEBUG: " + msg)
+    await console.log("DEBUG: " + msg)
   } else if (error==true && type==1) {
-      console.log("ERROR: " + msg)
+    await console.log("ERROR: " + msg)
   } else if (info==true && type==2) {
-      console.log("INFO: " + msg)
+    await console.log("INFO: " + msg)
   }
 };
 
@@ -111,7 +111,7 @@ async function sendWelcome(client) {
     Your ip adress is [b]`+ client.client.propcache.connectionClientIp +` (`+ client.client.propcache.clientCountry +`)[/b].\n
     If you have any questions/remarks/suggestions/compliments join in [b]"Need Help?"[/b] channel and wait for administrator.`)
   .catch(e => {
-      log(e, 1);
+     await log(e, 1);
   });
 };
 
@@ -119,7 +119,7 @@ async function SendStaffMSG(username) {
   const clients = await teamspeak.clientList();
   const clientsfilter = await clients.filter(client => NotifyHelp.some(g => client.servergroups.includes(g)));
   clientsfilter.forEach(client => {
-    client.message("Potrebna je pomoć korisniku [b]"+username+"[/b] !")
+    await client.message("Potrebna je pomoć korisniku [b]"+username+"[/b] !")
   });
 };
 
@@ -129,7 +129,7 @@ async function updateOnline(channelid) {
   var replace = "[cspacer]ONLINE: "+TotalClients;
   await teamspeak.channelInfo(channelid).then(currentname => {
   if(currentname.channelName!=replace) {
-  teamspeak.channelEdit(channelid, {channelName: replace});
+    await teamspeak.channelEdit(channelid, {channelName: replace});
   }
   });
 };
@@ -141,7 +141,7 @@ async function updateStaff(channelid) {
   var replace = "[cspacer]STAFF ONLINE: "+TotalStaff;
   await teamspeak.channelInfo(channelid).then(currentname => {
   if(currentname.channelName!=replace) {
-  teamspeak.channelEdit(channelid, {channelName: replace});
+    await teamspeak.channelEdit(channelid, {channelName: replace});
   }
   });
 };
@@ -151,8 +151,7 @@ teamspeak.on("textmessage", async message => {
   const args = message.msg.slice(botprefix.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
 
-  if(commandName=="slots")
-  {
+  if(commandName=="slots") {
     await slots(args[0], message.invoker.clid);
   } else if(commandName=="8ball") {
     await ball(args, message.invoker.clid);
@@ -164,8 +163,23 @@ teamspeak.on("textmessage", async message => {
     await coc(args[0], message.invoker.clid);
   } else if(commandName=="fortnite") {
     await fortnite(args[0], args[1], message.invoker.clid);
+  } else if(commandName=="help") {
+    await help(message.invoker.clid);
+  } else {
+    await teamspeak.sendTextMessage(message.invoker.clid, 1, "Command not found! Use "+ botprefix + "help for list commands!"); 
   }
 });
+
+async function help(username) {
+      await teamspeak.sendTextMessage(message.invoker.clid, 1, `Here is list of available commands: \n
+      ${botprefix}8ball \n
+      ${botprefix}slots \n
+      ${botprefix}rps   \n
+      ${botprefix}csgo  \n
+      ${botprefix}coc   \n
+      ${botprefix}fortnite
+      `); 
+};
 
 async function fortnite(username, platform, user) {
   const data = await get(`https://api.fortnitetracker.com/v1/profile/${platform}/${encodeURIComponent(username)}`)
@@ -217,7 +231,7 @@ async function coc(tag, user) {
           const data = await get(`https://api.clashofclans.com/v1/players/${encodeURIComponent(tag.toUpperCase().replace(/O/g, "0"))}`)
             .set({ Accept: "application/json", Authorization: ClashOfClansAPI })
             .catch(error => {
-                log(error, 1)
+                await log(error, 1)
             });
 
         const playerData = data.body;
@@ -240,10 +254,10 @@ async function coc(tag, user) {
         if (heroLevels) await teamspeak.sendTextMessage(user, 1, "❯ Hero Levels: " + heroLevels);
 };
 
-function rps(move, user) {
+async function rps(move, user) {
         const choices = ["rock", "paper", "scissors"];
 
-        const outcome = choices[Math.floor(Math.random() * choices.length)];
+        const outcome = await choices[Math.floor(Math.random() * choices.length)];
         const choice = move.toLowerCase();
         if (choice === "rock") {
             if (outcome === "rock") return teamspeak.sendTextMessage(user, 1, "Rock! That's a tie!");
@@ -258,11 +272,11 @@ function rps(move, user) {
             if (outcome === "paper") return teamspeak.sendTextMessage(user, 1, "Paper! No! You won...");
             if (outcome === "scissors") return teamspeak.sendTextMessage(user, 1, "***Scissors! Yeah! That's a tie!");
         } else {
-              teamspeak.sendTextMessage(user, 1, "Wrong argument you can use: rock, paper, scissors!");
+             await teamspeak.sendTextMessage(user, 1, "Wrong argument you can use: rock, paper, scissors!");
         }
 };
 
-function ball(question, user) {
+async function ball(question, user) {
   const answers = [
     "Maybe.", "Certainly not.", "I hope so.", "Not in your wildest dreams.",
     "There is a good chance.", "Quite likely.", "I think so.",
@@ -272,10 +286,10 @@ function ball(question, user) {
     "The future is uncertain.", "I would rather not say.", "Who cares?",
     "Possibly.", "Never, ever, ever.", "There is a small chance.", "Yes!"];
   
-    teamspeak.sendTextMessage(user, 1, `🎱 ${answers[Math.floor(Math.random() * answers.length)]}`)
+   await teamspeak.sendTextMessage(user, 1, `🎱 ${answers[Math.floor(Math.random() * answers.length)]}`)
 };
 
-function slots(bet, user) {
+async function slots(bet, user) {
     const slots = ["🍔", "🍟", "🌭", "🍕", "🌮", "🍘", "🍫", "🍿", "🍩"];
     const Mone = slots[Math.floor(Math.random() * slots.length)];
     const Mtwo = slots[Math.floor(Math.random() * slots.length)];
@@ -288,14 +302,14 @@ function slots(bet, user) {
     const Bthree = slots[Math.floor(Math.random() * slots.length)];
     var Snowflakes = bet;
     if (Mone === Mtwo || Mone === Mthree || Mthree === Mtwo) {
-            const flakesPercent = Math.round(Snowflakes * 60 / 100) >= 1 ? Math.round(Snowflakes * 50 / 100) : 1;
+            const flakesPercent = await Math.round(Snowflakes * 60 / 100) >= 1 ? Math.round(Snowflakes * 50 / 100) : 1;
             const coins = 100 + Snowflakes + flakesPercent;
-            teamspeak.sendTextMessage(user, 1, `\n${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`);
-            teamspeak.sendTextMessage(user, 1, `You won ${coins} coins!`)
-            teamspeak.sendTextMessage(user, 1, `You just won ❄ \`${flakesPercent}\`, you now have ❄ \`${bet}\`! Good job!`);
+            await teamspeak.sendTextMessage(user, 1, `\n${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`);
+            await teamspeak.sendTextMessage(user, 1, `You won ${coins} coins!`)
+            await teamspeak.sendTextMessage(user, 1, `You just won ❄ \`${flakesPercent}\`, you now have ❄ \`${bet}\`! Good job!`);
     } else {
-           teamspeak.sendTextMessage(user, 1, `\n${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`);
-           teamspeak.sendTextMessage(user, 1, `You lost ❄ \`${Snowflakes}\`, you now have ❄ \`${bet}\`! Better luck next time!`);
+          await teamspeak.sendTextMessage(user, 1, `\n${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`);
+          await teamspeak.sendTextMessage(user, 1, `You lost ❄ \`${Snowflakes}\`, you now have ❄ \`${bet}\`! Better luck next time!`);
     }
 };
 
@@ -304,5 +318,5 @@ app.get("/api", (request, response) => {
 
 
 const listener = app.listen(process.env.PORT, () => {
-  log("ELITE-TS BOT API ONLINE NA PORTU: " + listener.address().port, 2);
+ await log(botname+" API ONLINE NA PORTU: " + listener.address().port, 2);
 });
