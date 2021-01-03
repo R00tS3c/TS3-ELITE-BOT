@@ -171,13 +171,13 @@ teamspeak.on("textmessage", async message => {
 });
 
 async function help(username) {
-      await teamspeak.sendTextMessage(username, 1, `Here is list of available commands: \n
-      ${botprefix}8ball \n
-      ${botprefix}slots \n
-      ${botprefix}rps   \n
-      ${botprefix}csgo  \n
-      ${botprefix}coc   \n
-      ${botprefix}fortnite
+      await teamspeak.sendTextMessage(username, 1, `\nHere is list of available commands: \n
+  ❯ ${botprefix}8ball
+  ❯ ${botprefix}slots
+  ❯ ${botprefix}rps
+  ❯ ${botprefix}csgo
+  ❯ ${botprefix}coc
+  ❯ ${botprefix}fortnite
       `); 
 };
 
