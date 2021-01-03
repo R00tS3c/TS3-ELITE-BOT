@@ -19,15 +19,18 @@ const TryReconnect        = true;
 const WelcomeMsg          = true;
 const StaffOnline         = true;
 const UsersOnline         = true;
+const NotifyStaffHelp     = true;
 
 const botprefix           = "-";
 const OnlineChannelID     = 58;
 const StaffChannelID      = 182;
+const HelpChannelID       = 14;
 const StaffGroups         = ["9","30","19"]
 
 const SteamAPI            = "521186ABF3F9902433A9F7BFBC7BFC72";
 const ClashOfClansAPI     = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjkwMDE5NzdhLThlYjAtNDdjNy05MDQ0LTA3YzNjM2I0ODhkMiIsImlhdCI6MTYwOTYyNDY1MCwic3ViIjoiZGV2ZWxvcGVyLzZhYmQ1N2EyLTZmZGQtZDU1YS1kMjBjLTFkYzQ1NzE0NzRkNSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjM0LjIzOS4xMjguMTc3Il0sInR5cGUiOiJjbGllbnQifV19.vyHJtyrZ2TWShdyXZNmoLID9dtVDLgftrMQFSRShDLLH9ODUeE7aAJu4l3aYdWsjOOF8ukSWuFCJIJcaWqnpwA";
 const FortniteTrackerAPI  = "124bcb91-f1ed-4021-9209-1ade04568f3a";
+
 
 
 
@@ -50,6 +53,11 @@ teamspeak.on("ready", async function() {
    }
 });
 
+teamspeak.on("clientmoved", async function(data) {
+if(data.channel.propcache.cid==HelpChannelID && NotifyStaffHelp==true) {
+    SendStaffMSG(data.channel.propcache.clientNickname);
+}
+});
 
 teamspeak.on("clientconnect", async (client) => {
   await sendWelcome(client);
@@ -76,6 +84,7 @@ teamspeak.on("close", async () => {
     await teamspeak.reconnect(-1, 1000)
     log("RECONNECT: Uspešno!", 2)
 });
+
 
 teamspeak.on("error", (error) => {
   log(error, 1);
@@ -105,6 +114,14 @@ async function sendWelcome(client) {
   });
 };
 
+async function SendStaffMSG(username) {
+  const clients = await teamspeak.clientList();
+  const clientsfilter = await clients.filter(client => StaffGroups.some(g => client.servergroups.includes(g)));
+  clientsfilter.forEach(client => {
+    client.message("Potrebna je pomoć korisniku [b]"+username+"[/b] !")
+  });
+};
+
 async function updateOnline(channelid) {
   const clients = await teamspeak.clientList();
   var TotalClients = clients.length;
@@ -128,24 +145,24 @@ async function updateStaff(channelid) {
   });
 };
 
-teamspeak.on("textmessage", message => {
+teamspeak.on("textmessage", async message => {
   if(!message.msg.startsWith(botprefix)) return;
   const args = message.msg.slice(botprefix.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
 
   if(commandName=="slots")
   {
-    slots(args[0], message.invoker.clid);
+    await slots(args[0], message.invoker.clid);
   } else if(commandName=="8ball") {
-    ball(args, message.invoker.clid);
+    await ball(args, message.invoker.clid);
   } else if(commandName=="rps") {
-    rps(args[0], message.invoker.clid);
+    await rps(args[0], message.invoker.clid);
   } else if(commandName=="csgo") {
-    csgo(args[0], message.invoker.clid);
+    await csgo(args[0], message.invoker.clid);
   } else if(commandName=="coc") {
-    coc(args[0], message.invoker.clid);
+    await coc(args[0], message.invoker.clid);
   } else if(commandName=="fortnite") {
-    fortnite(args[0], args[1], message.invoker.clid);
+    await fortnite(args[0], args[1], message.invoker.clid);
   }
 });
 
