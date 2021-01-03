@@ -171,7 +171,7 @@ teamspeak.on("textmessage", async message => {
 });
 
 async function help(username) {
-      await teamspeak.sendTextMessage(message.invoker.clid, 1, `Here is list of available commands: \n
+      await teamspeak.sendTextMessage(username, 1, `Here is list of available commands: \n
       ${botprefix}8ball \n
       ${botprefix}slots \n
       ${botprefix}rps   \n
