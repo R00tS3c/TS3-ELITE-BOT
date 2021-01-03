@@ -87,7 +87,7 @@ teamspeak.on("close", async () => {
 });
 
 
-teamspeak.on("error", (error) => {
+teamspeak.on("error", async (error) => {
   await log(error, 1);
 });
 
