@@ -109,7 +109,10 @@ async function sendWelcome(client) {
     Your unique id is [b]"`+ client.client.propcache.clientUniqueIdentifier +`"[/b].
     Your client version is [b]`+ client.client.propcache.clientVersion +` (`+ client.client.propcache.clientPlatform+`)[/b].
     Your ip adress is [b]`+ client.client.propcache.connectionClientIp +` (`+ client.client.propcache.clientCountry +`)[/b].\n
-    If you have any questions/remarks/suggestions/compliments join in [b]"Need Help?"[/b] channel and wait for administrator.`)
+    If you have any questions/remarks/suggestions/compliments join in [b]"Need Help?"[/b] channel and wait for administrator.
+    
+    Register on our forum: [url=https://forum.elitegaming.me]LINK[/url]
+    For list commands: ${botprefix}help`)
   .catch(e => {
      log(e, 1);
   });
@@ -183,7 +186,7 @@ async function help(username) {
 
 async function fortnite(username, platform, user) {
    if (typeof username === 'undefined' || typeof platform === 'undefined') { 
-     await teamspeak.sendTextMessage(user, 1, `\n Please use this command in this format: ${botprefix}fortnite username platform`);
+     await teamspeak.sendTextMessage(user, 1, `Please use this command in this format: ${botprefix}fortnite username platform`);
      return;
    }
      
@@ -206,7 +209,7 @@ async function fortnite(username, platform, user) {
 
 async function csgo(username, user) {
    if (typeof username === 'undefined') { 
-     await teamspeak.sendTextMessage(user, 1, `\n Please use this command in this format: ${botprefix}csgo username`);
+     await teamspeak.sendTextMessage(user, 1, `Please use this command in this format: ${botprefix}csgo username`);
      return;
    }
         const userData = await get(`http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/`)
@@ -237,7 +240,7 @@ async function csgo(username, user) {
 
 async function coc(tag, user) {
      if (typeof tag === 'undefined') { 
-      await teamspeak.sendTextMessage(user, 1, `\n Please use this command in this format: ${botprefix}coc tag`);
+      await teamspeak.sendTextMessage(user, 1, `Please use this command in this format: ${botprefix}coc tag`);
       return;
      }
           const data = await get(`https://api.clashofclans.com/v1/players/${encodeURIComponent(tag.toUpperCase().replace(/O/g, "0"))}`)
@@ -268,7 +271,7 @@ async function coc(tag, user) {
 
 async function rps(move, user) {
      if (typeof move === 'undefined') { 
-          await teamspeak.sendTextMessage(user, 1, `\n Please use this command in this format: ${botprefix}rps rock/paper/scissors`);
+          await teamspeak.sendTextMessage(user, 1, `Please use this command in this format: ${botprefix}rps rock/paper/scissors`);
           return;
      }
         const choices = ["rock", "paper", "scissors"];
@@ -293,8 +296,8 @@ async function rps(move, user) {
 };
 
 async function ball(question, user) {
-     if (typeof question === 'undefined') { 
-       await teamspeak.sendTextMessage(user, 1, `\n Please use this command in this format: ${botprefix}8ball question`);
+     if (typeof question[0] === 'undefined') { 
+       await teamspeak.sendTextMessage(user, 1, `Please use this command in this format: ${botprefix}8ball question`);
        return;
      }
   
@@ -312,7 +315,7 @@ async function ball(question, user) {
 
 async function slots(bet, user) {
      if (typeof bet === 'undefined') { 
-      await teamspeak.sendTextMessage(user, 1, `\n Please use this command in this format: ${botprefix}slots 50`);
+      await teamspeak.sendTextMessage(user, 1, `Please use this command in this format: ${botprefix}slots 50`);
       return;
      }
   
