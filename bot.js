@@ -25,7 +25,8 @@ const botprefix           = "-";
 const OnlineChannelID     = 58;
 const StaffChannelID      = 182;
 const HelpChannelID       = 14;
-const StaffGroups         = ["9","30","19"]
+const StaffGroups         = ["9","30","19"];
+const NotifyHelp          = ["48"];
 
 const SteamAPI            = "521186ABF3F9902433A9F7BFBC7BFC72";
 const ClashOfClansAPI     = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjkwMDE5NzdhLThlYjAtNDdjNy05MDQ0LTA3YzNjM2I0ODhkMiIsImlhdCI6MTYwOTYyNDY1MCwic3ViIjoiZGV2ZWxvcGVyLzZhYmQ1N2EyLTZmZGQtZDU1YS1kMjBjLTFkYzQ1NzE0NzRkNSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjM0LjIzOS4xMjguMTc3Il0sInR5cGUiOiJjbGllbnQifV19.vyHJtyrZ2TWShdyXZNmoLID9dtVDLgftrMQFSRShDLLH9ODUeE7aAJu4l3aYdWsjOOF8ukSWuFCJIJcaWqnpwA";
@@ -55,7 +56,7 @@ teamspeak.on("ready", async function() {
 
 teamspeak.on("clientmoved", async function(data) {
 if(data.channel.propcache.cid==HelpChannelID && NotifyStaffHelp==true) {
-    SendStaffMSG(data.channel.propcache.clientNickname);
+  await SendStaffMSG(data.client.propcache.clientNickname);
 }
 });
 
@@ -116,7 +117,7 @@ async function sendWelcome(client) {
 
 async function SendStaffMSG(username) {
   const clients = await teamspeak.clientList();
-  const clientsfilter = await clients.filter(client => StaffGroups.some(g => client.servergroups.includes(g)));
+  const clientsfilter = await clients.filter(client => NotfyHelp.some(g => client.servergroups.includes(g)));
   clientsfilter.forEach(client => {
     client.message("Potrebna je pomoć korisniku [b]"+username+"[/b] !")
   });
