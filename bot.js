@@ -111,7 +111,7 @@ async function sendWelcome(client) {
     Your ip adress is [b]`+ client.client.propcache.connectionClientIp +` (`+ client.client.propcache.clientCountry +`)[/b].\n
     If you have any questions/remarks/suggestions/compliments join in [b]"Need Help?"[/b] channel and wait for administrator.`)
   .catch(e => {
-     await log(e, 1);
+     log(e, 1);
   });
 };
 
@@ -231,7 +231,7 @@ async function coc(tag, user) {
           const data = await get(`https://api.clashofclans.com/v1/players/${encodeURIComponent(tag.toUpperCase().replace(/O/g, "0"))}`)
             .set({ Accept: "application/json", Authorization: ClashOfClansAPI })
             .catch(error => {
-                await log(error, 1)
+                log(error, 1)
             });
 
         const playerData = data.body;
@@ -318,5 +318,5 @@ app.get("/api", (request, response) => {
 
 
 const listener = app.listen(process.env.PORT, () => {
- await log(botname+" API ONLINE NA PORTU: " + listener.address().port, 2);
+  log(botname+" API ONLINE NA PORTU: " + listener.address().port, 2);
 });
