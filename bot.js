@@ -182,6 +182,11 @@ async function help(username) {
 };
 
 async function fortnite(username, platform, user) {
+   if (typeof username === 'undefined' || typeof platform === 'undefined') { 
+     await teamspeak.sendTextMessage(user, 1, `\n Please use this command in this format: ${botprefix}fortnite username platform`);
+     return;
+   }
+     
   const data = await get(`https://api.fortnitetracker.com/v1/profile/${platform}/${encodeURIComponent(username)}`)
             .set("TRN-Api-Key", FortniteTrackerAPI)
             .catch(e => {
@@ -200,7 +205,10 @@ async function fortnite(username, platform, user) {
 };
 
 async function csgo(username, user) {
-
+   if (typeof username === 'undefined') { 
+     await teamspeak.sendTextMessage(user, 1, `\n Please use this command in this format: ${botprefix}csgo username`);
+     return;
+   }
         const userData = await get(`http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/`)
             .query({ key: SteamAPI, vanityurl: username })
             .catch(e => {
@@ -228,6 +236,10 @@ async function csgo(username, user) {
 };
 
 async function coc(tag, user) {
+     if (typeof tag === 'undefined') { 
+      await teamspeak.sendTextMessage(user, 1, `\n Please use this command in this format: ${botprefix}coc tag`);
+      return;
+     }
           const data = await get(`https://api.clashofclans.com/v1/players/${encodeURIComponent(tag.toUpperCase().replace(/O/g, "0"))}`)
             .set({ Accept: "application/json", Authorization: ClashOfClansAPI })
             .catch(error => {
@@ -255,6 +267,10 @@ async function coc(tag, user) {
 };
 
 async function rps(move, user) {
+     if (typeof move === 'undefined') { 
+          await teamspeak.sendTextMessage(user, 1, `\n Please use this command in this format: ${botprefix}rps rock/paper/scissors`);
+          return;
+     }
         const choices = ["rock", "paper", "scissors"];
 
         const outcome = await choices[Math.floor(Math.random() * choices.length)];
@@ -277,6 +293,11 @@ async function rps(move, user) {
 };
 
 async function ball(question, user) {
+     if (typeof question === 'undefined') { 
+       await teamspeak.sendTextMessage(user, 1, `\n Please use this command in this format: ${botprefix}8ball question`);
+       return;
+     }
+  
   const answers = [
     "Maybe.", "Certainly not.", "I hope so.", "Not in your wildest dreams.",
     "There is a good chance.", "Quite likely.", "I think so.",
@@ -290,6 +311,11 @@ async function ball(question, user) {
 };
 
 async function slots(bet, user) {
+     if (typeof bet === 'undefined') { 
+      await teamspeak.sendTextMessage(user, 1, `\n Please use this command in this format: ${botprefix}slots 50`);
+      return;
+     }
+  
     const slots = ["🍔", "🍟", "🌭", "🍕", "🌮", "🍘", "🍫", "🍿", "🍩"];
     const Mone = slots[Math.floor(Math.random() * slots.length)];
     const Mtwo = slots[Math.floor(Math.random() * slots.length)];
