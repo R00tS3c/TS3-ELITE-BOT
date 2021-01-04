@@ -125,18 +125,18 @@ async function updateOnline(channelid=false, staffchannelid=false) {
   const TotalClients = clients.length;
   const TotalStaff = count.length;
   if(channelid!=false) {
-     var replace = "[cspacer]ONLINE: "+TotalClients;
+     var totalreplace = "[cspacer]ONLINE: "+TotalClients;
      await teamspeak.channelInfo(channelid).then(currentname => {
-      if(currentname.channelName!=replace) {
-             teamspeak.channelEdit(channelid, {channelName: replace});
+      if(currentname.channelName!=totalreplace) {
+             teamspeak.channelEdit(channelid, {channelName: totalreplace});
       }
     });
   }
   if(staffchannelid!=false) {
-  replace = "[cspacer]STAFF ONLINE: "+TotalStaff;
+  var staffreplace = "[cspacer]STAFF ONLINE: "+TotalStaff;
   await teamspeak.channelInfo(staffchannelid).then(currentname => {
-        if(currentname.channelName!=replace) {
-            teamspeak.channelEdit(staffchannelid, {channelName: replace});
+        if(currentname.channelName!=staffreplace) {
+            teamspeak.channelEdit(staffchannelid, {channelName: staffreplace});
         }
     }); 
   }
