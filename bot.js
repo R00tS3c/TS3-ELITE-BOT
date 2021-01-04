@@ -46,11 +46,8 @@ const teamspeak = new TeamSpeak({
 
 teamspeak.on("ready", async function() {
    await log("BOT USPESNO POVEZAN NA TS3!", 2);
-   if(UsersOnline==true) {
-   await updateOnline(OnlineChannelID);
-   }
-   if(StaffOnline==true){
-   await updateStaff(StaffChannelID);
+   if(UsersOnline==true || StaffOnline ==true) {
+   await updateOnline(OnlineChannelID, StaffChannelID);
    }
 });
 
@@ -61,21 +58,17 @@ if(data.channel.propcache.cid==HelpChannelID && NotifyStaffHelp==true) {
 });
 
 teamspeak.on("clientconnect", async (client) => {
+  if(WelcomeMsg==true) {
   await sendWelcome(client);
-  if(UsersOnline==true) {
-  await updateOnline(OnlineChannelID);
   }
-  if(StaffOnline==true){
-  await updateStaff(StaffChannelID);
+  if(UsersOnline==true || StaffOnline ==true) {
+  await updateOnline(OnlineChannelID, StaffChannelID);
   }
 });
 
 teamspeak.on("clientdisconnect", async () => {
-  if(UsersOnline==true) {
-  await updateOnline(OnlineChannelID);
-  }
-  if(StaffOnline==true){
-  await updateStaff(StaffChannelID);
+  if(UsersOnline==true || StaffOnline ==true) {
+  await updateOnline(OnlineChannelID, StaffChannelID);
   }
 });
 
@@ -126,27 +119,27 @@ async function SendStaffMSG(username) {
   });
 };
 
-async function updateOnline(channelid) {
-  const clients = await teamspeak.clientList();
-  var TotalClients = clients.length;
-  var replace = "[cspacer]ONLINE: "+TotalClients;
-  await teamspeak.channelInfo(channelid).then(currentname => {
-  if(currentname.channelName!=replace) {
-    teamspeak.channelEdit(channelid, {channelName: replace});
-  }
-  });
-};
-
-async function updateStaff(channelid) {
+async function updateOnline(channelid=false, staffchannelid=false) {
   const clients = await teamspeak.clientList();
   const count = await clients.filter(client => StaffGroups.some(g => client.servergroups.includes(g)));
-  var TotalStaff = count.length;
-  var replace = "[cspacer]STAFF ONLINE: "+TotalStaff;
-  await teamspeak.channelInfo(channelid).then(currentname => {
-  if(currentname.channelName!=replace) {
-    teamspeak.channelEdit(channelid, {channelName: replace});
+  const TotalClients = clients.length;
+  const TotalStaff = count.length;
+  if(channelid!=false) {
+     var replace = "[cspacer]ONLINE: "+TotalClients;
+     await teamspeak.channelInfo(channelid).then(currentname => {
+      if(currentname.channelName!=replace) {
+             teamspeak.channelEdit(channelid, {channelName: replace});
+      }
+    });
   }
-  });
+  if(staffchannelid!=false) {
+  replace = "[cspacer]STAFF ONLINE: "+TotalStaff;
+  await teamspeak.channelInfo(staffchannelid).then(currentname => {
+        if(currentname.channelName!=replace) {
+            teamspeak.channelEdit(staffchannelid, {channelName: replace});
+        }
+    }); 
+  }
 };
 
 teamspeak.on("textmessage", async message => {
