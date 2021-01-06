@@ -163,7 +163,7 @@ teamspeak.on("textmessage", async message => {
   } else if(commandName=="help") {
     await help(message.invoker.clid);
   } else if(commandName=="portscan") {
-    await portscanner(args[0], message.invoker.clid);
+    await portscan(args[0], message.invoker.clid);
   }  else {
     await teamspeak.sendTextMessage(message.invoker.clid, 1, "Command not found! Use "+ botprefix + "help for list commands!"); 
   }
@@ -180,7 +180,7 @@ async function help(username) {
       `); 
 };
 
-async function portscanner(host, user) {
+async function portscan(host, user) {
     if (typeof host === 'undefined') { 
         await teamspeak.sendTextMessage(user, 1, `Please use this command in this format: ${botprefix}portscan 127.0.0.1`);
         return;
