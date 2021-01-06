@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const { TeamSpeak, QueryProtocol } = require("ts3-nodejs-library");
 const { get } = require("snekfetch");
+const portscanner = require('portscanner');
 
 //Podesavanja
 const host                = "ts3.elitegaming.me";
@@ -161,7 +162,9 @@ teamspeak.on("textmessage", async message => {
     await fortnite(args[0], args[1], message.invoker.clid);
   } else if(commandName=="help") {
     await help(message.invoker.clid);
-  } else {
+  } else if(commandName=="portscan") {
+    await portscanner(args[0], message.invoker.clid);
+  }  else {
     await teamspeak.sendTextMessage(message.invoker.clid, 1, "Command not found! Use "+ botprefix + "help for list commands!"); 
   }
 });
@@ -175,6 +178,17 @@ async function help(username) {
   ❯ ${botprefix}coc
   ❯ ${botprefix}fortnite
       `); 
+};
+
+async function portscanner(host, user) {
+    if (typeof host === 'undefined') { 
+        await teamspeak.sendTextMessage(user, 1, `Please use this command in this format: ${botprefix}portscan 127.0.0.1`);
+        return;
+    }
+    
+    await portscanner.findAPortInUse(1, 10000, host, async (port) => {
+        await teamspeak.sendTextMessage(user, 1, "Port open: "+ port+ "\n"); 
+    }).catch(e => { log(e, 1)});
 };
 
 async function fortnite(username, platform, user) {
