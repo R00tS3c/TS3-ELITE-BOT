@@ -186,9 +186,12 @@ async function portscan(host, user) {
         return;
     }
     
-    await portscanner.findAPortInUse(1, 10000, host, async (port) => {
-        await teamspeak.sendTextMessage(user, 1, "Port open: "+ port+ "\n"); 
-    }).catch(e => { log(e, 1)});
+    await portscanner.findAPortInUse(1, 10000, host, async (error,port) => {
+        await teamspeak.sendTextMessage(user, 1, "Port open: "+ port+ "\n");
+        if(error) {
+        log(error, 1);
+        }
+    });
 };
 
 async function fortnite(username, platform, user) {
