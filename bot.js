@@ -9,7 +9,7 @@ const host                = "ts3.elitegaming.me";
 const port                = 9987;
 const queryport           = 10011;
 const username            = "serveradmin";
-const password            = "LR+hR70b";
+const password            = "r1u4Nkqo";
 const botname             = "ELITE BOT";
 
 const debug               = false;  //DEBUG LOG
