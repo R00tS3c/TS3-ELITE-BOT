@@ -23,9 +23,9 @@ const UsersOnline         = true;
 const NotifyStaffHelp     = true;
 
 const botprefix           = "-";
-const OnlineChannelID     = 58;
-const StaffChannelID      = 182;
-const HelpChannelID       = 14;
+const OnlineChannelID     = 8;
+const StaffChannelID      = 9;
+const HelpChannelID       = 18;
 const StaffGroups         = ["9","30","19"];
 const NotifyHelp          = ["48"];
 
