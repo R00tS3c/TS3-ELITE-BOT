@@ -9,8 +9,8 @@ const host                = "ts3.elitegaming.me";
 const port                = 9987;
 const queryport           = 10011;
 const username            = "serveradmin";
-const password            = "r1u4Nkqo";
-const botname             = "ELITE BOT";
+const password            = "MUDJUB43GUB34GU34G";
+const botname             = "UGB.RS BOT";
 
 const debug               = false;  //DEBUG LOG
 const error               = false;  //ERROR LOG
@@ -23,10 +23,10 @@ const UsersOnline         = true;
 const NotifyStaffHelp     = true;
 
 const botprefix           = "-";
-const OnlineChannelID     = 8;
-const StaffChannelID      = 9;
-const HelpChannelID       = 18;
-const StaffGroups         = ["9","30","19"];
+const OnlineChannelID     = 453;
+const StaffChannelID      = 7;
+const HelpChannelID       = 19;
+const StaffGroups         = ["38","2"];
 const NotifyHelp          = ["48"];
 
 const SteamAPI            = "521186ABF3F9902433A9F7BFBC7BFC72";
