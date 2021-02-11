@@ -19,7 +19,7 @@ const info                = true;   //INFO LOG
 const TryReconnect        = true;
 const WelcomeMsg          = true;
 const StaffOnline         = true;
-const UsersOnline         = true;
+const UsersOnline         = false;
 const NotifyStaffHelp     = true;
 
 const botprefix           = "-";
