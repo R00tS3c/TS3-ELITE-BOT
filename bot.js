@@ -9,7 +9,7 @@ const host                = "ts3.elitegaming.me";
 const port                = 9987;
 const queryport           = 10011;
 const username            = "serveradmin";
-const password            = "MUDJUB43GUB34GU34G";
+const password            = "2k5cvhRtc6pSDk";
 const botname             = "UGB.RS BOT";
 
 const debug               = false;  //DEBUG LOG
@@ -23,8 +23,8 @@ const UsersOnline         = false;
 const NotifyStaffHelp     = true;
 
 const botprefix           = "-";
-const OnlineChannelID     = 7;
-const StaffChannelID      = 8;
+const OnlineChannelID     = 153;
+const StaffChannelID      = 7;
 const HelpChannelID       = 20;
 const StaffGroups         = ["38","2"];
 const NotifyHelp          = ["48"];
