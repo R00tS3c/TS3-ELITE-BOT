@@ -62,14 +62,19 @@ teamspeak.on("clientconnect", async (client) => {
   if(WelcomeMsg==true) {
   await sendWelcome(client);
   }
+  
   if(UsersOnline==true || StaffOnline ==true) {
-  await updateOnline(OnlineChannelID, StaffChannelID);
+    setInterval(function() {
+    updateOnline(OnlineChannelID, StaffChannelID);
+    }, 60000);
   }
 });
 
 teamspeak.on("clientdisconnect", async () => {
   if(UsersOnline==true || StaffOnline ==true) {
-  await updateOnline(OnlineChannelID, StaffChannelID);
+    setInterval(function() {
+    updateOnline(OnlineChannelID, StaffChannelID);
+    }, 60000);
   }
 });
 
