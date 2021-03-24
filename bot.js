@@ -53,6 +53,8 @@ teamspeak.on("ready", async function() {
     updateOnline(OnlineChannelID, StaffChannelID);
    }
   
+   newsMessage();
+  
    setInterval(function() {
     updateOnline(OnlineChannelID, StaffChannelID);
    }, 60000);
@@ -60,8 +62,6 @@ teamspeak.on("ready", async function() {
    setInterval(function() {
     newsMessage();
    }, 900);
-  
-   newsMessage();
 });
 
 teamspeak.on("clientmoved", async function(data) {
