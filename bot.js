@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const { TeamSpeak, QueryProtocol } = require("ts3-nodejs-library");
 const { get } = require("snekfetch");
-const https = require('https');
 const portscanner = require('portscanner');
 const htmlparser2 = require("htmlparser2");
 
