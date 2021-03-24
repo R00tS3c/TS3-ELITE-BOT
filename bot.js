@@ -2,15 +2,19 @@ const express = require("express");
 const app = express();
 const { TeamSpeak, QueryProtocol } = require("ts3-nodejs-library");
 const { get } = require("snekfetch");
+const https = require('https');
 const portscanner = require('portscanner');
+//xml parser
+const htmlparser2 = require("htmlparser2");
+
 
 //Podesavanja
-const host                = "ts3.elitegaming.me";
-const port                = 9987;
+const host                = "5.254.118.212";
+const port                = 1312;
 const queryport           = 10011;
 const username            = "serveradmin";
-const password            = "2k5cvhRtc6pSDk";
-const botname             = "UGB.RS BOT";
+const password            = "leiCZAwP";
+const botname             = "onomoe";
 
 const debug               = false;  //DEBUG LOG
 const error               = false;  //ERROR LOG
@@ -33,6 +37,8 @@ const SteamAPI            = "521186ABF3F9902433A9F7BFBC7BFC72";
 const ClashOfClansAPI     = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjkwMDE5NzdhLThlYjAtNDdjNy05MDQ0LTA3YzNjM2I0ODhkMiIsImlhdCI6MTYwOTYyNDY1MCwic3ViIjoiZGV2ZWxvcGVyLzZhYmQ1N2EyLTZmZGQtZDU1YS1kMjBjLTFkYzQ1NzE0NzRkNSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjM0LjIzOS4xMjguMTc3Il0sInR5cGUiOiJjbGllbnQifV19.vyHJtyrZ2TWShdyXZNmoLID9dtVDLgftrMQFSRShDLLH9ODUeE7aAJu4l3aYdWsjOOF8ukSWuFCJIJcaWqnpwA";
 const FortniteTrackerAPI  = "124bcb91-f1ed-4021-9209-1ade04568f3a";
 
+var LastLink;
+
 const teamspeak = new TeamSpeak({
   host: host,
   queryport: queryport,
@@ -44,7 +50,6 @@ const teamspeak = new TeamSpeak({
 
 teamspeak.on("ready", async function() {
    await log("BOT USPESNO POVEZAN NA TS3!", 2);
-  
    if(UsersOnline == true || StaffOnline == true) {
    await updateOnline(OnlineChannelID, StaffChannelID);
    }
@@ -52,7 +57,10 @@ teamspeak.on("ready", async function() {
    setInterval(function() {
     updateOnline(OnlineChannelID, StaffChannelID);
    }, 60000);
-  
+   //news
+   setInterval(function() {
+    newsMessage();
+   }, 3600000);
 });
 
 teamspeak.on("clientmoved", async function(data) {
@@ -155,6 +163,7 @@ async function updateOnline(channelid=false, staffchannelid=false) {
   }
 };
 
+
 teamspeak.on("textmessage", async message => {
   if(!message.msg.startsWith(botprefix)) return;
   const args = message.msg.slice(botprefix.length).split(/ +/);
@@ -227,6 +236,20 @@ async function fortnite(username, platform, user) {
                + `❯ K/D:** ${data.body.lifeTimeStats.find(a => a.key === "K/d") ? data.body.lifeTimeStats.find(a => a.key === "K/d").value : "N/A"}`+ "\n"
                + `❯ Top 3s:** ${data.body.lifeTimeStats.find(a => a.key === "Top 3s") ? data.body.lifeTimeStats.find(a => a.key === "Top 3s").value.toLocaleString() : "N/A"}`+ "\n"
                + `❯ Platform:** ${data.body.platformNameLong}`);
+};
+
+async function newsMessage() {
+    const ugbfeed = await get(`https://ugb.rs/feed`)
+    .catch(e => {
+        log(e,1);
+    });
+    const feed = htmlparser2.parseFeed(ugbfeed.body);
+    var LastTitle = feed.items[feed.items.length-1].title;
+    var LastLink = feed.items[feed.items.length-1].link;
+    var LastLink2 = feed.items[feed.items.length-1].link;
+      if (LastLink != LastLink2) {
+       teamspeak.sendTextMessage("0", 3, "Novi post iz oblasti gaminga na našem sajtu. Pogledajte više o [url="+LastLink+"]"+LastTitle+"[/url] na sajtu!")
+      }
 };
 
 async function csgo(username, user) {
