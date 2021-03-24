@@ -15,7 +15,7 @@ const password            = "2k5cvhRtc6pSDk";
 const botname             = "UGB.RS BOT";
 
 const debug               = false;  //DEBUG LOG
-const error               = true;  //ERROR LOG
+const error               = false;  //ERROR LOG
 const info                = true;   //INFO LOG
 
 const TryReconnect        = true;
@@ -239,7 +239,7 @@ async function fortnite(username, platform, user) {
 };
 
 async function newsMessage() {
-    const ugbfeed = await get(`https://ugb.rs/feed`)
+    const ugbfeed = await get(`https://ugb.rs/feed/`)
     .catch(e => {
         log(e,1);
     });
