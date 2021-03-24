@@ -16,7 +16,7 @@ const password            = "2k5cvhRtc6pSDk";
 const botname             = "UGB.RS BOT";
 
 const debug               = false;  //DEBUG LOG
-const error               = false;  //ERROR LOG
+const error               = true;  //ERROR LOG
 const info                = true;   //INFO LOG
 
 const TryReconnect        = true;
