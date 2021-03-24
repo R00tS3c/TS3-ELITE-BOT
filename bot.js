@@ -4,7 +4,6 @@ const { TeamSpeak, QueryProtocol } = require("ts3-nodejs-library");
 const { get } = require("snekfetch");
 const https = require('https');
 const portscanner = require('portscanner');
-//xml parser
 const htmlparser2 = require("htmlparser2");
 
 
