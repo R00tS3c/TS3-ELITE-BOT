@@ -53,7 +53,7 @@ teamspeak.on("ready", async function() {
     updateOnline(OnlineChannelID, StaffChannelID);
    }
   
-   await newsMessage();
+   newsMessage();
   
    setInterval(function() {
     updateOnline(OnlineChannelID, StaffChannelID);
@@ -244,7 +244,8 @@ async function newsMessage() {
     .catch(e => {
         log(e,1);
     });
-    const feed = htmlparser2.parseFeed(ugbfeed.body);
+  
+    const feed = await htmlparser2.parseFeed(ugbfeed.body);
   
     var item = Math.floor(Math.random() * feed.items.length);
     teamspeak.sendTextMessage("0", 3, "[NOVOSTI] NOVI ČLANAK [url="+feed.items[item].link+"]"+feed.items[item].title+"[/url] NA NAŠEM SAJTU! MOŽETE PROČITATI KLIKOM NA NASLOV.")
