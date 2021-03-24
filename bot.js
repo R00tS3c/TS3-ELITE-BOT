@@ -53,7 +53,7 @@ teamspeak.on("ready", async function() {
     updateOnline(OnlineChannelID, StaffChannelID);
    }
   
-   newsMessage();
+   await newsMessage();
   
    setInterval(function() {
     updateOnline(OnlineChannelID, StaffChannelID);
