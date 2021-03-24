@@ -33,10 +33,6 @@ const SteamAPI            = "521186ABF3F9902433A9F7BFBC7BFC72";
 const ClashOfClansAPI     = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjkwMDE5NzdhLThlYjAtNDdjNy05MDQ0LTA3YzNjM2I0ODhkMiIsImlhdCI6MTYwOTYyNDY1MCwic3ViIjoiZGV2ZWxvcGVyLzZhYmQ1N2EyLTZmZGQtZDU1YS1kMjBjLTFkYzQ1NzE0NzRkNSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjM0LjIzOS4xMjguMTc3Il0sInR5cGUiOiJjbGllbnQifV19.vyHJtyrZ2TWShdyXZNmoLID9dtVDLgftrMQFSRShDLLH9ODUeE7aAJu4l3aYdWsjOOF8ukSWuFCJIJcaWqnpwA";
 const FortniteTrackerAPI  = "124bcb91-f1ed-4021-9209-1ade04568f3a";
 
-var users = 0;
-var staff = 0;
-
-
 const teamspeak = new TeamSpeak({
   host: host,
   queryport: queryport,
