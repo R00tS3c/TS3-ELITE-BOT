@@ -65,6 +65,13 @@ if(data.channel.propcache.cid==HelpChannelID && NotifyStaffHelp==true) {
 }
 });
 
+
+teamspeak.on("clientconnect", async (client) => {
+  if(WelcomeMsg==true) {
+  sendWelcome(client);
+  }
+});
+
 /*teamspeak.on("clientconnect", async (client) => {
   if(WelcomeMsg==true) {
   await sendWelcome(client);
