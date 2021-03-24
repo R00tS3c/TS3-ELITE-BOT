@@ -46,18 +46,22 @@ const teamspeak = new TeamSpeak({
 })
 
 teamspeak.on("ready", async function() {
+  
    await log("BOT USPESNO POVEZAN NA TS3!", 2);
+  
    if(UsersOnline == true || StaffOnline == true) {
-   await updateOnline(OnlineChannelID, StaffChannelID);
+    updateOnline(OnlineChannelID, StaffChannelID);
    }
   
    setInterval(function() {
     updateOnline(OnlineChannelID, StaffChannelID);
    }, 60000);
-   //news
+
    setInterval(function() {
     newsMessage();
    }, 900);
+  
+   newsMessage();
 });
 
 teamspeak.on("clientmoved", async function(data) {
