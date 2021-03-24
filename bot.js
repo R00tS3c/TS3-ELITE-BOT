@@ -61,7 +61,7 @@ teamspeak.on("ready", async function() {
 
    setInterval(function() {
     newsMessage();
-   }, 900);
+   }, 900000);
 });
 
 teamspeak.on("clientmoved", async function(data) {
