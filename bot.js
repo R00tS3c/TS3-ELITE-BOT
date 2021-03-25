@@ -51,8 +51,7 @@ teamspeak.on("ready", async function() {
    if(UsersOnline == true || StaffOnline == true) {
     updateOnline(OnlineChannelID, StaffChannelID);
    }
-  
-   newsMessage();
+
   
    setInterval(function() {
     updateOnline(OnlineChannelID, StaffChannelID);
@@ -60,7 +59,7 @@ teamspeak.on("ready", async function() {
 
    setInterval(function() {
     newsMessage();
-   }, 300000);
+   }, 900000);
 });
 
 teamspeak.on("clientmoved", async function(data) {
