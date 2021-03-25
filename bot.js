@@ -247,7 +247,7 @@ async function newsMessage() {
     const feed = await htmlparser2.parseFeed(ugbfeed.body);
   
     var item = Math.floor(Math.random() * feed.items.length);
-    teamspeak.sendTextMessage("0", 3, "[NOVOSTI] NOVI ČLANAK [url="+feed.items[item].link+"]"+feed.items[item].title+"[/url] NA NAŠEM SAJTU! MOŽETE PROČITATI KLIKOM NA NASLOV.")
+    teamspeak.sendTextMessage("0", 3, "[b][color=red][NOVOSTI][/color][/b] Novi članak [url="+feed.items[item].link+"]"+feed.items[item].title+"[/url] na našem sajtu! Možete pročitati klikom na naslov!")
 };
 
 async function csgo(username, user) {
