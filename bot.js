@@ -7,12 +7,12 @@ const htmlparser2 = require("htmlparser2");
 
 
 //Podesavanja
-const host                = "ts3.elitegaming.me";
+const host                = "ts3.hulk.rs";
 const port                = 9987;
 const queryport           = 10011;
 const username            = "serveradmin";
 const password            = "2k5cvhRtc6pSDk";
-const botname             = "UGB.RS BOT";
+const botname             = "HULK.RS GUARD";
 
 const debug               = false;  //DEBUG LOG
 const error               = false;  //ERROR LOG
