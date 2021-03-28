@@ -124,7 +124,7 @@ async function sendWelcome(client) {
     Your ip adress is [b]`+ client.client.propcache.connectionClientIp +` (`+ client.client.propcache.clientCountry +`)[/b].\n
     If you have any questions/remarks/suggestions/compliments join in [b]"Need Help?"[/b] channel and wait for administrator.
     
-    Register on our forum: [url=https://forum.elitegaming.me]LINK[/url]
+    Register on our forum: [url=https://forum.hulk.rs]LINK[/url]
     For list commands: ${botprefix}help`)
   .catch(e => {
      log(e, 1);
@@ -238,7 +238,7 @@ async function fortnite(username, platform, user) {
 };
 
 async function newsMessage() {
-    const ugbfeed = await get(`https://ugb.rs/feed/`)
+    const ugbfeed = await get(`https://hulk.rs/feed/`)
     .catch(e => {
         log(e,1);
     });
