@@ -45,14 +45,16 @@ const teamspeak = new TeamSpeak({
   nickname: botname
 })
 
+
+
 teamspeak.on("ready", async function() {
   
    await log("BOT USPESNO POVEZAN NA TS3!", 2);
   
    if(UsersOnline == true || StaffOnline == true) {
     updateOnline(OnlineChannelID, StaffChannelID);
-   }
-
+   } 
+  
    genbanner();
 
    setInterval(function() {
@@ -395,30 +397,23 @@ async function genbanner() {
     const TotalStaff = count.length;
 
     let template = "hldyn.jpg";
-    let save = "/public/hldyn.jpg";
-
-    var online = 'ONLINE USERS';
-    var staffonline =  "";
+    let save = "public/hldyn.jpg";
 
     var loadedImage;
     
     Jimp.read(template)
         .then(function (image) {
             loadedImage = image;
-            return Jimp.loadFont(Jimp.FONT_SANS_16_BLACK);
+            return Jimp.loadFont("impact.ttf");
         })
         .then(function (font) {
-            loadedImage.print(font, 10, 10, online)
-            loadedImage.print(font, 50, 50, TotalClients)
-            loadedImage.print(font, 100, 109, staffonline)
-            loadedImage.print(font, 60, 60, TotalStaff)
-          
+            loadedImage.print(font, 145, 172, TotalClients);
+            loadedImage.print(font, 730, 172, TotalStaff);
+            loadedImage.write(save);
         })
         .catch(function (err) {
             console.error(err);
         });
-
-
 };
 
 app.use(express.static('public'));
