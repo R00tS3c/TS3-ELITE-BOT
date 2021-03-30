@@ -394,8 +394,8 @@ async function genbanner() {
     const TotalClients = clients.length;
     const TotalStaff = count.length;
 
-    const template = "hldyn.jpg";
-    const save = "public/hldyn.jpg";
+    let template = "hldyn.jpg";
+    let save = "/public/hldyn.jpg";
 
     var online = 'ONLINE USERS';
     var staffonline =  "";
