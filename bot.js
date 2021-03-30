@@ -4,6 +4,7 @@ const { TeamSpeak, QueryProtocol } = require("ts3-nodejs-library");
 const { get } = require("snekfetch");
 const portscanner = require('portscanner');
 const htmlparser2 = require("htmlparser2");
+const Jimp = require('jimp');
 
 
 //Podesavanja
@@ -52,9 +53,11 @@ teamspeak.on("ready", async function() {
     updateOnline(OnlineChannelID, StaffChannelID);
    }
 
-  
+   genbanner();
+
    setInterval(function() {
     updateOnline(OnlineChannelID, StaffChannelID);
+    genbanner();
    }, 60000);
 
    setInterval(function() {
@@ -383,6 +386,43 @@ async function slots(bet, user) {
           await teamspeak.sendTextMessage(user, 1, `You lost ❄ \`${Snowflakes}\`, you now have ❄ \`${bet}\`! Better luck next time!`);
     }
 };
+
+async function genbanner() {
+
+    const clients = await teamspeak.clientList();
+    const count = await clients.filter(client => StaffGroups.some(g => client.servergroups.includes(g)));
+    const TotalClients = clients.length;
+    const TotalStaff = count.length;
+
+    const template = "hldyn.jpg";
+    const save = "public/hldyn.jpg";
+
+    var online = 'ONLINE USERS';
+    var staffonline =  "";
+
+    var loadedImage;
+    
+    Jimp.read(template)
+        .then(function (image) {
+            loadedImage = image;
+            return Jimp.loadFont(Jimp.FONT_SANS_16_BLACK);
+        })
+        .then(function (font) {
+            loadedImage.print(font, 10, 10, online)
+            loadedImage.print(font, 50, 50, TotalClients)
+            loadedImage.print(font, 100, 109, staffonline)
+            loadedImage.print(font, 60, 60, TotalStaff)
+          
+        })
+        .catch(function (err) {
+            console.error(err);
+        });
+
+
+};
+
+app.use(express.static('public'));
+
 
 app.get("/api", (request, response) => {
 });
