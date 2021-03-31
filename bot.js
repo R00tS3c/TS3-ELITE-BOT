@@ -56,6 +56,7 @@ teamspeak.on("ready", async function() {
    } 
   
    genbanner();
+   newsMessage();
 
    setInterval(function() {
     updateOnline(OnlineChannelID, StaffChannelID);
@@ -99,9 +100,9 @@ teamspeak.on("clientdisconnect", async () => {
     
 teamspeak.on("close", async () => {
     if(TryReconnect==true)
-    await log("RECONNECT: Pokusavam da se povezem na TS3...", 2)
+    log("RECONNECT: Pokusavam da se povezem na TS3...", 2)
     await teamspeak.reconnect(-1, 1000)
-    await log("RECONNECT: Uspešno!", 2)
+    log("RECONNECT: Uspešno!", 2)
 });
 
 
@@ -111,11 +112,11 @@ teamspeak.on("error", async (error) => {
 
 async function log(msg, type) {
   if(debug==true && type==0) {
-    await console.log("DEBUG: " + msg)
+    console.log("DEBUG: " + msg)
   } else if (error==true && type==1) {
-    await console.log("ERROR: " + msg)
+    console.log("ERROR: " + msg)
   } else if (info==true && type==2) {
-    await console.log("INFO: " + msg)
+    console.log("INFO: " + msg)
   }
 };
 
@@ -174,21 +175,21 @@ teamspeak.on("textmessage", async message => {
   const commandName = args.shift().toLowerCase();
 
   if(commandName=="slots") {
-    await slots(args[0], message.invoker.clid);
+    slots(args[0], message.invoker.clid);
   } else if(commandName=="8ball") {
-    await ball(args, message.invoker.clid);
+    ball(args, message.invoker.clid);
   } else if(commandName=="rps") {
-    await rps(args[0], message.invoker.clid);
+    rps(args[0], message.invoker.clid);
   } else if(commandName=="csgo") {
-    await csgo(args[0], message.invoker.clid);
+    csgo(args[0], message.invoker.clid);
   } else if(commandName=="coc") {
-    await coc(args[0], message.invoker.clid);
+    coc(args[0], message.invoker.clid);
   } else if(commandName=="fortnite") {
-    await fortnite(args[0], args[1], message.invoker.clid);
+    fortnite(args[0], args[1], message.invoker.clid);
   } else if(commandName=="help") {
-    await help(message.invoker.clid);
+    help(message.invoker.clid);
   } else if(commandName=="portscan") {
-    await portscan(args[0], message.invoker.clid);
+    portscan(args[0], message.invoker.clid);
   }  else {
     await teamspeak.sendTextMessage(message.invoker.clid, 1, "Command not found! Use "+ botprefix + "help for list commands!"); 
   }
@@ -243,7 +244,7 @@ async function fortnite(username, platform, user) {
 };
 
 async function newsMessage() {
-    const ugbfeed = await get(`https://hulk.rs/feed/`)
+    const ugbfeed = await get("https://hulk.rs/feed/")
     .catch(e => {
         log(e,1);
     });
