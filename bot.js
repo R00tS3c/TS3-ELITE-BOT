@@ -244,15 +244,14 @@ async function fortnite(username, platform, user) {
 };
 
 async function newsMessage() {
-    const ugbfeed = await get("https://hulk.rs/feed/")
-    .catch(e => {
-        log(e,1);
+    get("https://hulk.rs/feed/").then((ugbfeed) => {
+       htmlparser2.parseFeed(ugbfeed.body).then((feed) => {
+         
+        var item = Math.floor(Math.random() * feed.items.length);
+        teamspeak.sendTextMessage("0", 3, "[b][color=red][NOVOSTI][/color][/b] Novi članak [url="+feed.items[item].link+"]"+feed.items[item].title+"[/url] na našem sajtu! Možete pročitati klikom na naslov!");
+    
+       });
     });
-  
-    const feed = await htmlparser2.parseFeed(ugbfeed.body);
-  
-    var item = Math.floor(Math.random() * feed.items.length);
-    teamspeak.sendTextMessage("0", 3, "[b][color=red][NOVOSTI][/color][/b] Novi članak [url="+feed.items[item].link+"]"+feed.items[item].title+"[/url] na našem sajtu! Možete pročitati klikom na naslov!")
 };
 
 async function csgo(username, user) {
