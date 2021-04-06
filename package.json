@@ -4,7 +4,7 @@
   "description": "ELITE TS BOT",
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "pm2 start bot.js --deep-monitoring --attach"
   },
   "dependencies": {
     "express": "^4.17.1",
