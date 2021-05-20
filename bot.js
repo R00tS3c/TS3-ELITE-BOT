@@ -47,7 +47,7 @@ const teamspeak = new TeamSpeak({
 
 
 
-teamspeak.on("ready", async function() {
+teamspeak.on("ready", function() {
   
    log("BOT USPESNO POVEZAN NA TS3!", 2);
   
@@ -106,11 +106,11 @@ teamspeak.on("close", async () => {
 });
 
 
-teamspeak.on("error", async (error) => {
-  await log(error, 1);
+teamspeak.on("error", (error) => {
+  log(error, 1);
 });
 
-async function log(msg, type) {
+function log(msg, type) {
   if(debug==true && type==0) {
     console.log("DEBUG: " + msg)
   } else if (error==true && type==1) {
