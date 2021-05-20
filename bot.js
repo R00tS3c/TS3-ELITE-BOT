@@ -8,7 +8,7 @@ const Jimp = require('jimp');
 
 
 //Podesavanja
-const host                = "ts3.hulk.rs";
+const host                = "89.40.105.189";
 const port                = 9987;
 const queryport           = 10011;
 const username            = "serveradmin";
@@ -101,7 +101,7 @@ teamspeak.on("clientdisconnect", async () => {
 teamspeak.on("close", async () => {
     if(TryReconnect==true)
     log("RECONNECT: Pokusavam da se povezem na TS3...", 2)
-    await teamspeak.reconnect(-1, 1000)
+    await teamspeak.reconnect(-1, 10000)
     log("RECONNECT: Uspešno!", 2)
 });
 
