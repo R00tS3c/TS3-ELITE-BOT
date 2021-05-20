@@ -43,20 +43,20 @@ const teamspeak = new TeamSpeak({
   username: username,
   password: password,
   nickname: botname
-})
+});
 
 
 
 teamspeak.on("ready", async function() {
   
-   await log("BOT USPESNO POVEZAN NA TS3!", 2);
+   log("BOT USPESNO POVEZAN NA TS3!", 2);
   
    if(UsersOnline == true || StaffOnline == true) {
     updateOnline(OnlineChannelID, StaffChannelID);
    } 
   
    genbanner();
-   newsMessage();
+  // newsMessage();
 
    setInterval(function() {
     updateOnline(OnlineChannelID, StaffChannelID);
