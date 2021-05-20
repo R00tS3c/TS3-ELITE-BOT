@@ -7,15 +7,12 @@
     "start": "node bot.js"
   },
   "dependencies": {
-    "express": "4.17.1",
-    "ts3-nodejs-library": "3.2.0",
-    "snekfetch": "4.0.4",
-    "portscanner": "2.2.0",
-    "htmlparser2": "6.0.1",
-    "jimp": "0.16.1"
-  },
-  "engines": {
-    "node": "12.x"
+    "express": "^4.17.1",
+    "ts3-nodejs-library": "^3.3.0",
+    "snekfetch": "^4.0.4",
+    "portscanner": "^2.2.0",
+    "htmlparser2": "^6.0.1",
+    "jimp": "^0.16.1"
   },
   "scripts": {
     "start": "node bot.js"
