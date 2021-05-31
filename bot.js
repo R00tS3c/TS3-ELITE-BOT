@@ -423,6 +423,6 @@ app.get("/api", (request, response) => {
 });
 
 
-const listener = app.listen(process.env.PORT, () => {
+const listener = app.listen(process.env.PORT || 80, () => {
   log(botname+" API ONLINE NA PORTU: " + listener.address().port, 2);
 });
